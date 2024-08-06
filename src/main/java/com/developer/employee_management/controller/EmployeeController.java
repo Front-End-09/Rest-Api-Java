@@ -1,7 +1,6 @@
 package com.developer.employee_management.controller;
 
 import com.developer.employee_management.entity.EmployeeEntity;
-import com.developer.employee_management.repository.EmployeeRepository;
 import com.developer.employee_management.service.EmployeeService;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    public  EmployeeController(EmployeeService employeeService){
+    public EmployeeController(EmployeeService employeeService){
         this.employeeService = employeeService;
     }
 
@@ -23,18 +22,23 @@ public class EmployeeController {
         return employeeService.findAllEmployee();
     }
 
-    @GetMapping("/id")
-    public Optional<EmployeeRepository> findEmployeeById(@PathVariable("id") long id){
+    @GetMapping("/{id}")
+    public Optional<EmployeeEntity> findEmployeeById(@PathVariable("id") long id){
         return employeeService.findById(id);
     }
 
-    @GetMapping
+    @PostMapping
     public EmployeeEntity saveEmployee(@RequestBody EmployeeEntity employeeEntity){
-        return employeeService.saveEmployee(EmployeeEntity);
+        return employeeService.saveEmployee(employeeEntity);
     }
 
-    @GetMapping
-    public  EmployeeEntity updateEmployee(@RequestBody EmployeeEntity employeeEntity){
+    @PutMapping
+    public EmployeeEntity updateEmployee(@RequestBody EmployeeEntity employeeEntity){
         return employeeService.updateEmployee(employeeEntity);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteEmployee(@PathVariable("id") Long id) {
+        employeeService.deleteEmployee(id);
     }
 }
