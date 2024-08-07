@@ -23,18 +23,18 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public Optional<EmployeeEntity> findEmployeeById(@PathVariable("id") long id){
+    public EmployeeEntity findEmployeeById(@PathVariable("id") Long id){
         return employeeService.findById(id);
     }
 
     @PostMapping
     public EmployeeEntity saveEmployee(@RequestBody EmployeeEntity employeeEntity){
-        return employeeService.saveEmployee(employeeEntity);
+        return employeeService.save(employeeEntity);
     }
 
     @PutMapping
     public EmployeeEntity updateEmployee(@RequestBody EmployeeEntity employeeEntity){
-        return employeeService.updateEmployee(employeeEntity);
+        return employeeService.update(employeeEntity);
     }
 
     @DeleteMapping("/{id}")
